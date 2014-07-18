@@ -128,9 +128,9 @@ function CameraMove() {
 
 	theta = THREE.Math.degToRad(lon);
 
-	targetPosition.x = camera.position.x + 1000 * Math.sin(phi) * Math.cos(theta);
-	targetPosition.y = camera.position.y + 1000 * Math.cos(phi);
-	targetPosition.z = camera.position.z + 1000 * Math.sin(phi) * Math.sin(theta);
+	targetPosition.x = camera.position.x + 100 * Math.sin(phi) * Math.cos(theta);
+	targetPosition.y = camera.position.y + 100 * Math.cos(phi);
+	targetPosition.z = camera.position.z + 100 * Math.sin(phi) * Math.sin(theta);
 
 	camera.lookAt(targetPosition);
 }
