@@ -10,11 +10,11 @@ THREE.CustomShader = {
 		},
 		alpha: {
 			type: "f",
-			value: .011
+			value: .08
 		},
 		gradientOffset: {
 			type: "f",
-			value: 0
+			value: 3.2408590664521597
 		},
 		gradientOpacity: {
 			type: "f",
@@ -34,7 +34,7 @@ THREE.CustomShader = {
 		},
 		opacity: {
 			type: "f",
-			value: 1
+			value: 0.88
 		},
 		vAlpha: {
 			type: "f",
