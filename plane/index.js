@@ -81,6 +81,14 @@ function init() {
 	Composer.addPass(vt);
 	Composer.addPass(gt);
 	gt.renderToScreen = !0;
+
+
+	//帧数监测
+
+	stats = new Stats();
+	stats.domElement.style.position = 'absolute';
+	stats.domElement.style.top = '0px';
+	container.appendChild(stats.domElement);
 }
 var mouse = {
 	x: 0,
@@ -148,7 +156,7 @@ function animate() {
 	requestAnimationFrame(animate);
 
 	render();
-	//stats.update();
+	stats.update();
 
 }
 
