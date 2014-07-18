@@ -13,6 +13,7 @@ var zoom = 10e-34;
 init();
 animate();
 
+
 function init() {
 	camera = new THREE.PerspectiveCamera(100, WIDTH / HEIGHT, 1, 3e3);
 
