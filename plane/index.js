@@ -24,7 +24,7 @@ var S, x = 25, //SCENE_3D_FOV_MIN,
 	T = 100, //SCENE_3D_FOV_MAX,
 	N = 750, //SCENE_CAMERA_HORIZONTAL_DISTANCE,
 	C = 110, //SCENE_CAMERA_VERTICAL_BASE_DISTANCE,
-	k = false, //SCENE_CAMERA_VERTICAL_UP_DISTANCE,
+	k = 200, //SCENE_CAMERA_VERTICAL_UP_DISTANCE,
 	L = 60, //SCENE_CAMERA_VERTICAL_DOWN_DISTANCE,
 	A = 3, //PARTICLE_FIELD_GRID_SEG,
 	O = 2000, //t.PARTICLE_FIELD_GRID_SIZE,
@@ -357,7 +357,7 @@ function ParticleField(offsetX, offsetZ) {
 
 
 function fakePoint() {
-	var c = 80;
+	var c = 512;
 	var img = THREE.ImageUtils.loadTexture("1.jpg");
 	var geometry = new THREE.PlaneGeometry(c, c, 1, 1)
 	var material = new THREE.ShaderMaterial({
@@ -447,10 +447,6 @@ function reset() {
 
 function init() {
 	camera = new THREE.PerspectiveCamera(100, 1, 1, 3e3);
-
-	camera.position.x = 0;
-	camera.position.y = 109;
-	camera.position.z = 759;
 	reset();
 	projector = new THREE.Projector();
 	scene = new THREE.Scene();
@@ -565,10 +561,7 @@ function OnMousedown(event) {
 
 function Onwheel(event) {
 	var t = event.wheelDelta > 0 ? 1 : -1;
-	if (t > 0) {
-		(tt -= wt * (B / 2) * 2e-4 * (1 - e.zoom * .25) * (1 - e.targetZoom));
-	}
-	e.targetZoom = y(e.targetZoom + t * .05, 0, 1);
+	t > 0 && (tt -= wt * (B / 2) * 2e-4 * (1 - e.zoom * .25) * (1 - e.targetZoom)), e.targetZoom = y(e.targetZoom + t * .05, 0, 1)
 }
 
 function onWindowResize() {
@@ -641,7 +634,11 @@ function render() {
 
 	R.lookAt(camera.position), ct += e.cameraSwingSpeed;
 	var _ = e.cameraSwingRadius;
-	camera.translateX(Math.sin(ct) * _ * (1 - u)), camera.translateY(Math.sin(ct * 2) * _ / 2), camera.lookAt(R.position), e.lookAtHorizontalAngle = Bt(), gt.uniforms.gradientOffset.value = e.lookAtHorizontalAngle;
+	camera.translateX(Math.sin(ct) * _ * (1 - u));
+	camera.translateY(Math.sin(ct * 2) * _ / 2);
+	camera.lookAt(R.position);
+	e.lookAtHorizontalAngle = Bt();
+	gt.uniforms.gradientOffset.value = e.lookAtHorizontalAngle;
 	var D = Y.x,
 		P = Y.z,
 		I = Q.x,
@@ -684,19 +681,26 @@ function render() {
 	pt.uniforms.r.value = dt.uniforms.r.value = vt.uniforms.r.value = .5;
 	pt.uniforms.blendRatio.value = dt.uniforms.blendRatio.value = vt.uniforms.blendRatio.value = e.blurBlendRatio * (1 - u);
 	// r.particles.position.copy(z.position), r.particles.rotation.copy(z.rotation), r.particles.translateX(-F + r.offsetLeft), r.particles.translateY(r.offsetTop);
-	// var Ot = D - I,
-	// 	Mt = P - X,
-	// 	_t = Tt - St,
-	// 	Dt = Nt - xt,
-	// 	Pt = Math.atan2(Mt, Ot) - Math.atan2(Dt, _t);
-	// Pt > Math.PI ? Pt -= Math.PI * 2 : Pt < -Math.PI && (Pt += Math.PI * 2), U.rotateZ(-Pt);
-	// var Ht = Q.x - St,
-	// 	Ft = Q.z - xt,
-	// 	It = jt(Ht, Ft),
-	// 	qt = (Ht * Ot + Ft * Mt) / (It * jt(Ot, Mt)) > 0;
+	var Ot = D - I,
+		Mt = P - X,
+		_t = Tt - St,
+		Dt = Nt - xt,
+		Pt = Math.atan2(Mt, Ot) - Math.atan2(Dt, _t);
+	Pt > Math.PI ? Pt -= Math.PI * 2 : Pt < -Math.PI && (Pt += Math.PI * 2), U.rotateZ(-Pt);
+	var Ht = Q.x - St,
+		Ft = Q.z - xt,
+		It = jt(Ht, Ft),
+		qt = (Ht * Ot + Ft * Mt) / (It * jt(Ot, Mt)) > 0;
 
-	// camera.near = 1e-5, camera.updateProjectionMatrix();
-	// camera.near = 1, camera.updateProjectionMatrix(), St = Q.x, xt = Q.z, Tt = Y.x, Nt = Y.z, Q.sub(y), camera.position.sub(y)
+	camera.near = 1e-5, camera.updateProjectionMatrix();
+	camera.near = 1;
+	camera.updateProjectionMatrix();
+	St = Q.x;
+	xt = Q.z;
+	Tt = Y.x;
+	Nt = Y.z;
+	Q.sub(y);
+	camera.position.sub(y);
 	Composer.render(delta);
 }
 
