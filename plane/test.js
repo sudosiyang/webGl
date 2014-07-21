@@ -17,11 +17,7 @@ function init() {
 
 	camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000);
 	camera.position.z = 500;
-
-	var h = document.createElement("canvas");
-	h.width = h.height = c;
-	var e = h.getContext("2d");
-	e.fillStyle = "#fefcfe", e.fillRect(0, 0, c, c);
+	
 	scene = new THREE.Scene();
 	var geometry = new THREE.PlaneGeometry(c, c, 1, 1)
 	var material = new THREE.ShaderMaterial({
