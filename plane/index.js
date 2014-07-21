@@ -564,11 +564,11 @@ function OnMousedown(event) {
 }
 
 function Onwheel(event) {
-	var t = event.wheelDelta > 0 ? 1 : 0;
+	var t = event.wheelDelta > 0 ? 1 : -1;
 	if (t > 0) {
 		(tt -= wt * (B / 2) * 2e-4 * (1 - e.zoom * .25) * (1 - e.targetZoom));
-		e.targetZoom = y(e.targetZoom + t * .05, 0, 1)
 	}
+	e.targetZoom = y(e.targetZoom + t * .05, 0, 1);
 }
 
 function onWindowResize() {
