@@ -151,7 +151,7 @@ var PostParticles = (function() {
 		init: function(e) {
 			var t, r = this.h;
 			while (r--) {
-				t = fakePoint();
+				t = new fakePoint();
 				t.scale.x = t.scale.y = t.scale.z = .01;
 				t.position.y = 9999;
 				t.material.uniforms.fade.value = 0;
@@ -237,7 +237,6 @@ var PostParticles = (function() {
 							D.gridX = w, D.gridY = E, D.hasMatch = !0;
 							//D.changePost(r.takePost());// 换图
 							changePost(D, k);
-							alert();
 							M = D.sumX = w * P, _ = D.sumY = E * P, D.position.x = M + (T(M * .3, _ * .3) - .5) * 8, D.position.y = T(M * .0013 + 4, _ * .0013 + 4) * -40 + T(M * 6e-4 + 32, _ * 6e-4 + 32) * -90 + T(M * 200 + 12, _ * 200 + 12) * 10, D.position.z = _ + (T(M * .4, _ * .4) - .5) * 8, D.material.uniforms.fade.value = 0;
 							break
 						}
@@ -272,6 +271,7 @@ function changePost(fake, idx) {
 		thumb: THREE.ImageUtils.loadTexture("2.jpg")
 	}];
 	fake.material.uniforms.texture.value = a[Math.floor(idx % 2)].thumb;
+	fake.thumb = a[Math.floor(idx % 2)];
 }
 
 function ParticleField(offsetX, offsetZ) {
@@ -424,9 +424,8 @@ function fakePoint() {
 		depthTest: !1,
 		transparent: !0,
 		fog: !0
-	})
-
-
+	});
+	THREE.Mesh.prototype.thumb = {};
 	return new THREE.Mesh(geometry, material);
 }
 
@@ -484,6 +483,7 @@ function init() {
 	renderer.domElement.addEventListener("mouseup", OnMouseup);
 	renderer.domElement.addEventListener("wheel", Onwheel);
 	renderer.domElement.addEventListener("mousemove", OnMousemove);
+	renderer.domElement.addEventListener("click", OnClick);
 
 	//特效处理
 	Composer = new THREE.EffectComposer(renderer);
@@ -553,6 +553,10 @@ function OnMousemove(event) {
 	CameraMove();
 }
 
+function OnClick() {
+	if (bt)
+		alert(bt.id);
+}
 
 function CameraMove() {
 
