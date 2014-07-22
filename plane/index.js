@@ -236,6 +236,8 @@ var PostParticles = (function() {
 						if (!D.hasMatch) {
 							D.gridX = w, D.gridY = E, D.hasMatch = !0;
 							//D.changePost(r.takePost());// 换图
+							changePost(D, k);
+							alert();
 							M = D.sumX = w * P, _ = D.sumY = E * P, D.position.x = M + (T(M * .3, _ * .3) - .5) * 8, D.position.y = T(M * .0013 + 4, _ * .0013 + 4) * -40 + T(M * 6e-4 + 32, _ * 6e-4 + 32) * -90 + T(M * 200 + 12, _ * 200 + 12) * 10, D.position.z = _ + (T(M * .4, _ * .4) - .5) * 8, D.material.uniforms.fade.value = 0;
 							break
 						}
@@ -259,9 +261,18 @@ var PostParticles = (function() {
 			}), y
 		}
 	}
-})()
+})();
 
-
+function changePost(fake, idx) {
+	var a = [{
+		id: "12",
+		thumb: THREE.ImageUtils.loadTexture("1.jpg")
+	}, {
+		id: "1",
+		thumb: THREE.ImageUtils.loadTexture("2.jpg")
+	}];
+	fake.material.uniforms.texture.value = a[Math.floor(idx % 2)].thumb;
+}
 
 function ParticleField(offsetX, offsetZ) {
 	this.offsetX = offsetX;
@@ -442,12 +453,12 @@ function reset() {
 	B = D.innerWidth, j = D.innerHeight;
 	var e = screen.width,
 		t = screen.height;
-	camera.setViewOffset(e, t, e - B >> 1, t - j >> 1, B, j)
+	camera.setViewOffset(e, t, e - B >> 1, t - j >> 1, B, j);
+	renderer.setSize(B, j);
 }
 
 function init() {
 	camera = new THREE.PerspectiveCamera(100, 1, 1, 3e3);
-	reset();
 	projector = new THREE.Projector();
 	scene = new THREE.Scene();
 	scene.fog = new THREE.FogExp2(460551, 6e-4)
@@ -462,7 +473,7 @@ function init() {
 
 	renderer = new THREE.WebGLRenderer();
 	renderer.setSize(B, j);
-
+	reset();
 
 
 	var container = document.getElementById('container');
