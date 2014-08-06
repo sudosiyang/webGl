@@ -130,7 +130,19 @@ var snoise = (function() {
 function o(e, t, n) {
 	return t + (n - t) * e
 }
-
+var caculate =(function(){
+	return {
+		i:0,
+		ca:function() {
+			if(this.i==200){
+				console.log("ccc");
+				this.i=0;
+			}else{
+				this.i++;
+			}
+		}
+	}
+})()
 
 var PostParticles = (function() {
 	return {
@@ -231,12 +243,13 @@ var PostParticles = (function() {
 			for (C = 0; C < p; C++) {
 				w = B[C * 4], E = B[C * 4 + 1], N = B[C * 4 + 2], D = B[C * 4 + 3];
 				if (!D) {
+
 					for (k = 0, L = this.v.length; k < L; k++) {
 						D = this.v[k];
 						if (!D.hasMatch) {
 							D.gridX = w, D.gridY = E, D.hasMatch = !0;
-							//D.changePost(r.takePost());// 换图
 							changePost(D, k);
+							caculate.ca();
 							M = D.sumX = w * P, _ = D.sumY = E * P, D.position.x = M + (T(M * .3, _ * .3) - .5) * 8, D.position.y = T(M * .0013 + 4, _ * .0013 + 4) * -40 + T(M * 6e-4 + 32, _ * 6e-4 + 32) * -90 + T(M * 200 + 12, _ * 200 + 12) * 10, D.position.z = _ + (T(M * .4, _ * .4) - .5) * 8, D.material.uniforms.fade.value = 0;
 							break
 						}
@@ -262,7 +275,9 @@ var PostParticles = (function() {
 	}
 })();
 
+
 function changePost(fake, idx) {
+
 	var a = [{
 		id: "12",
 		thumb: THREE.ImageUtils.loadTexture("1.jpg")
